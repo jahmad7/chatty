@@ -3,21 +3,19 @@ import React, {Component} from 'react';
 class ChatBar extends Component {
 
     onEnter = ev => {
-        console.log(ev.target.value);
         const newMessage = ev.target.value;
-        const changedName = ev.target.value.length > 0
-        const username = changedName ? ev.target.previousSibling.value : ev.target.previousSibling.placeholder; // TO DO CHANGE TO VALUE 
-
+        const changedName = ev.target.previousSibling.value.length > 0
+        const username = changedName ? ev.target.previousSibling.value : ev.target.previousSibling.placeholder; 
         if (ev.charCode == 13 && ev.target.value.length > 0){
             
             let newMessageObject = {
-            type: "incomingMessage",
-            content: newMessage,
-            username,
-            id: Date.now()
+                type: "incomingMessage",
+                content: newMessage,
+                username,
+                data: Date.now()  //TO DO - add ID 
             };
-        
-            this.props.addMessage(newMessageObject, username);
+            console.log(`${username} said "${newMessage}"`)
+            this.props.addMessage(newMessageObject);
             ev.target.value = '';
         }
     };
@@ -25,7 +23,7 @@ class ChatBar extends Component {
     render() {
         return (
             <footer className="chatbar">
-                <input className="chatbar-username" name="username" placeholder={this.props.username} />
+                <input className="chatbar-username" ref="username" placeholder={this.props.username} />
                 <input className="chatbar-message" name="minput" type="text" placeholder="Type a message and hit ENTER" onKeyPress={this.onEnter}/>
             </footer>
         );

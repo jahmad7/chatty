@@ -1,17 +1,33 @@
+$background: #F4F4F4;
+$title-color: white;
+$base-color: #B81F32;
 h1 {
-  color: tomato;
+  color: $base-color;
 }
 
 body {
-  background: white;
+  background: $background;
   color: black;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   margin: 70px 0;
 }
 
+.topWindow {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.Chats_Nav {
+  display: flex;
+  flex-direction: column;
+  background: $base-color;
+  border-top: 1px solid black;
+  bottom: 0;
+}
+
 .chatbar {
-  background: tomato;
+  background: $base-color;
   border-top: 1px solid black;
   bottom: 0;
   display: flex;
@@ -66,7 +82,7 @@ body {
 }
 
 .navbar {
-  background: tomato;
+  background: $base-color;
   border-bottom: 1px solid black;
   height: 60px;
   left: 0;
