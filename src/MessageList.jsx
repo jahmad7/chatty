@@ -8,10 +8,9 @@ class MessageList extends Component {
         
         let list = messageBoard.map(message => {
             if (message.type === "incomingMessage") {
-                 return  <Message message={message} key={message.id}/>
+                 return  <Message message={message} key={uuidv4()}/>
             }
             else {
-                console.log("LOOK HERE: ",message)
                 return <Notification message={message} key={uuidv4()} />
             }
         });

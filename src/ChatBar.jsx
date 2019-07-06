@@ -15,7 +15,6 @@ class ChatBar extends Component {
                 userID: this.props.userID,
                 date: Date.now() 
             };
-            console.log(`${username} said "${newMessage}"`)
             this.props.addMessage(newMessageObject);
             ev.target.value = '';
         }

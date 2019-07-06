@@ -47,9 +47,7 @@ class App extends Component {
 
         if (broadcastedMessage.type == 'count') {
           this.setState({numberOfUsers: broadcastedMessage.count})
-        } else {
-          console.log("broadcasted message from server:", broadcastedMessage);
-          
+        } else { 
           this.setState({messages: broadcastedMessage});
         }
       }
