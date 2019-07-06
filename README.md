@@ -1,41 +1,25 @@
-React Boilerplate
+Speedial Chat Application
 =====================
 
-A minimal and light dev environment for ReactJS.
+A chat application for users to talk to one another, where new users have access up to the last 20 lines of the chat
 
 ### Usage
 
-Clone the boilerplate and create your own git repo.
-
-```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
-
-Install the dependencies and start the server.
-
+install the package 
 ```
 npm install
 npm start
 open http://localhost:3000
 ```
 
-### Static Files
+Set up Server 
+go to server file in directory and run "node server.js"
 
-You can store static files like images, fonts, etc in the `build` folder.
 
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
+### Screenshots
+![Speedial home page](./screenshots/homepage.png)
 
-### Linting
 
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
 
 ### Dependencies
 
@@ -43,3 +27,4 @@ npm run lint
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+* "sockjs-client": "^1.1.2",
