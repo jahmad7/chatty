@@ -1,42 +1,57 @@
 import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
-import ChatNav from './Chats_nav.jsx';
+import NavigationBar from './NavigationBar.jsx';
+const uuidv4 = require('uuid/v4');
 
-function NavBar (){
-  return (
-    <nav className="navbar">
-      <a href="/" className="navbar-brand">Speedial</a>
-    </nav>
-  )
-}
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       user: 'Anon',
-      messages: []
+      messages: [],
+      numberOfUsers: 0,
+      userID: null
     };
   }
 
   addMessage = (newMessageObj) => {
-    //send to server
     this.webSocket.send(JSON.stringify(newMessageObj));
   };
+
+  onNameChange = (event) => {
+    if (event.charCode == 13 && event.target.value !== this.state.user) {
+
+      let nameChangeNotification = {
+        type: "incomingNotification",
+        content: `${this.state.user} changed their name to ${event.target.value}`,
+        message_id: uuidv4()
+      };
+
+      this.state.user =  event.target.value;
+
+      this.webSocket.send(JSON.stringify(nameChangeNotification));
+    }
+  } 
 
   componentDidMount() {
 
     console.log("componentDidMount <App />");
 
     this.webSocket = new WebSocket("ws://localhost:3001/");
+    
+    this.webSocket.onopen = () => {
+      this.webSocket.onmessage =  (event) => {
+        const broadcastedMessage = JSON.parse(event.data);
 
-    const ws = this.webSocket;
-    ws.onopen = () => {
-      ws.onmessage =  (event) => {
-        console.log("INCOMING DATA: ", event.data);
-        const data = JSON.parse(event.data);
-        this.setState({ messages: data});
+        if (broadcastedMessage.type == 'count') {
+          this.setState({numberOfUsers: broadcastedMessage.count})
+        } else {
+          console.log("broadcasted message from server:", broadcastedMessage);
+          
+          this.setState({messages: broadcastedMessage});
+        }
       }
     };
   }
@@ -44,11 +59,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar/>
+        <NavigationBar numberofUsrs={this.state.numberOfUsers}/>
         <main className="messages">
-          <MessageList data={this.state.messages} />
+          <MessageList messageBoard={this.state.messages} />
         </main>
-        <ChatBar username={this.state.user} addMessage={this.addMessage}/>
+        <ChatBar username={this.state.user} userID={this.state.userID} addMessage={this.addMessage} onNameChange={this.onNameChange}/>
       </div>
     );
   }

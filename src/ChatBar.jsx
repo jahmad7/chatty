@@ -12,7 +12,8 @@ class ChatBar extends Component {
                 type: "incomingMessage",
                 content: newMessage,
                 username,
-                data: Date.now()  //TO DO - add ID 
+                userID: this.props.userID,
+                date: Date.now() 
             };
             console.log(`${username} said "${newMessage}"`)
             this.props.addMessage(newMessageObject);
@@ -23,7 +24,7 @@ class ChatBar extends Component {
     render() {
         return (
             <footer className="chatbar">
-                <input className="chatbar-username" ref="username" placeholder={this.props.username} />
+                <input className="chatbar-username" ref="username" placeholder={this.props.username} onKeyPress={this.props.onNameChange}/>
                 <input className="chatbar-message" name="minput" type="text" placeholder="Type a message and hit ENTER" onKeyPress={this.onEnter}/>
             </footer>
         );
