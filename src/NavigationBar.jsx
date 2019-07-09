@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
+import React from "react"; 
 
-class NavigationBar extends Component {
-    render() {
-        return (
-            <nav className="navbar">
-                <a href="/" className="navbar-brand">Speedial</a>
-                <div className="chat-timer">TIMER</div>
-                <div className="user-online">{this.props.numberofUsrs} Users Online</div>
-            </nav>
-        );
-    }
+function NavigationBar (props) {
+    return (
+        <nav className="navbar">
+            <a href="/" className="navbar-brand">Speedial</a>
+            <div className="chat-timer">TIMER</div>
+            <div className="user-online">{props.numberofUsrs} Users Online</div>
+        </nav>
+    );
 }
 
 export default NavigationBar;
